@@ -1,0 +1,32 @@
+name: Semgrep rules CI
+on:
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  lint:
+    name: Lint Rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: YAML Lint
+        run: |
+          for f in $(find . -name '*.yaml' -o -name '*.yml'); do
+            echo "Linting $f"
+            yamllint --format github -c .github/lint-config.yaml $f
+          done
+  semgrep-test:
+    name: Test Semgrep rules
+    runs-on: ubuntu-latest
+    container: 
+      image: returntocorp/semgrep
+    permissions:
+      contents: read
+      pull-requests: write # Used to add comments to the PR
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test Semgrep rules
+        run: |
+          semgrep --test --config .

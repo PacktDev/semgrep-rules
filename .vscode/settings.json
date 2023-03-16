@@ -1,0 +1,8 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/semgrep.json": [
+            "file:///home/ahrent/code/github.com/packtdev/semgrep-rules/php/laravel/performance/n-plus-one.yaml",
+            "file:///home/ahrent/code/github.com/packtdev/semgrep-rules/php/laravel/best-practice/env.yaml"
+        ]
+    }
+}
